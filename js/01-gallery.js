@@ -29,6 +29,11 @@ gallery.innerHTML = galleryImg;
 
 function returnUrlBigImg(e) {
   e.preventDefault();
+  function closeModalForEsc(evt) {
+    if (evt.key === "Escape") {
+      bigImg.close();
+    }
+  }
 
   if (e.target.nodeName !== "IMG") {
     return;
@@ -39,9 +44,8 @@ function returnUrlBigImg(e) {
   `);
   bigImg.show();
 
-  gallery.addEventListener("keydown", ({ key }) => {
-    if (key === "Escape") {
-      bigImg.close();
-    }
+  gallery.addEventListener("keydown", closeModalForEsc);
+  gallery.addEventListener("keydown", () => {
+    gallery.removeEventListener("keydown", closeModalForEsc);
   });
 }
